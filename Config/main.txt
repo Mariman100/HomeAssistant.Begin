@@ -1,0 +1,103 @@
+sensor:
+  - platform: systemmonitor
+    resources:
+      - type: disk_use_percent
+        arg: /
+      - type: memory_use_percent
+      - type: processor_use
+      - type: processor_temperature
+
+  - platform: mqtt
+    name: "Kitchen Cold Water"
+    state_topic: "waterius/3083000/ch1"
+    value_template: "{{ value }}"
+    unit_of_measurement: "м3"
+    icon: mdi:water
+  - platform: mqtt
+    name: "Kitchen Hot Water"
+    state_topic: "waterius/3083000/ch0"
+    value_template: "{{ value }}"
+    unit_of_measurement: "м3"
+    icon: mdi:water
+  - platform: mqtt
+    name: "Kitchen Cold Day"
+    state_topic: "waterius/3083000/delta1"
+    value_template: "{{ value }}"
+    unit_of_measurement: "литр"
+    icon: mdi:delta
+  - platform: mqtt
+    name: "Kitchen Hot Day"
+    state_topic: "waterius/3083000/delta0"
+    value_template: "{{ value }}"
+    unit_of_measurement: "литр"
+    icon: mdi:delta
+  - platform: mqtt
+    name: "Kitchen Voltage"
+    state_topic: "waterius/3083000/voltage"
+    value_template: "{{ value }}"
+    unit_of_measurement: "V"
+    icon: mdi:battery
+  - platform: mqtt
+    name: "Kitchen Voltage Low"
+    state_topic: "waterius/3083000/voltage_low"
+    value_template: "{{ value }}"
+    unit_of_measurement: ""
+    icon: mdi:battery-off-outline
+
+  - platform: mqtt
+    name: "Bath Cold Water"
+    state_topic: "waterius/13746256/ch1"
+    value_template: "{{ value }}"
+    unit_of_measurement: "м3"
+    icon: mdi:water
+  - platform: mqtt
+    name: "Bath Hot Water"
+    state_topic: "waterius/13746256/ch0"
+    value_template: "{{ value }}"
+    unit_of_measurement: "м3"
+    icon: mdi:water
+  - platform: mqtt
+    name: "Bath Cold Day"
+    state_topic: "waterius/13746256/delta1"
+    value_template: "{{ value }}"
+    unit_of_measurement: "литр"
+    icon: mdi:delta
+  - platform: mqtt
+    name: "Bath Hot Day"
+    state_topic: "waterius/13746256/delta0"
+    value_template: "{{ value }}"
+    unit_of_measurement: "литр"
+    icon: mdi:delta
+  - platform: mqtt
+    name: "Bath Voltage"
+    state_topic: "waterius/13746256/voltage"
+    value_template: "{{ value }}"
+    unit_of_measurement: "V"
+    icon: mdi:battery
+  - platform: mqtt
+    name: "Bath Voltage Low"
+    state_topic: "waterius/13746256/voltage_low"
+    value_template: "{{ value }}"
+    unit_of_measurement: ""
+    icon: mdi:battery-off-outline
+
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+mqtt:
+  broker: 192.168.*
+  port: 1883
+#  client_id: home-assistant-1
+  keepalive: 60
+  username: *
+  password: *
